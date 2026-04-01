@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Pretty Baby Iah 🌸</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #f4c2c2;
+            --blush: #fce4ec;
+            --lavender: #e8d5f5;
+            --sky: #dceefb;
+            --mint: #d4f1ea;
+            --cream: #fff8f0;
+            --gold: #f7d6a0;
+            --ink: #4a3660;
+            --soft-ink: #7a6e8a;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            background: #0d0a1a;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #f9d0e0, #e8b4cc);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+            box-shadow: 0 0 10px rgba(249, 208, 224, 0.7), 0 0 20px rgba(249, 208, 224, 0.3);
+        }
+
+        /* Night sky canvas */
+        #sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Floating petals */
+        .petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            font-size: 14px;
+            animation: floatDown linear infinite;
+        }
+
+        @keyframes floatDown {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main wrapper */
+        .scene {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px 100px;
+        }
+
+        /* Intro title section */
+        .intro {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeUp 1.5s ease forwards;
+            opacity: 0;
+        }
+
+        .intro .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 200, 220, 0.3);
+            color: #f9d0e0;
+            font-family: 'Lora', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 8px 24px;
+            border-radius: 40px;
+            margin-bottom: 28px;
+        }
+
+        .intro h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 7vw, 4.5rem);
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            text-shadow: 0 0 60px rgba(249, 208, 224, 0.4);
+        }
+
+        .intro h1 em {
+            color: #f9d0e0;
+            font-style: italic;
+        }
+
+        .intro .sub {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Moon decoration */
+        .moon-deco {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 40px;
+            position: relative;
+            animation: moonGlow 4s ease-in-out infinite;
+        }
+
+        .moon-deco svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes moonGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 16px rgba(255, 230, 180, 0.5));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 32px rgba(255, 230, 180, 0.9));
+            }
+        }
+
+        /* The envelope / letter card */
+        .envelope-wrap {
+            width: 100%;
+            max-width: 680px;
+            animation: fadeUp 2s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .letter-card {
+            background: linear-gradient(160deg, #fff8f5 0%, #fef0f7 50%, #f5f0ff 100%);
+            border-radius: 0 0 24px 24px;
+            padding: 48px 52px 52px;
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 32px 80px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 200, 220, 0.2),
+                inset 0 0 60px rgba(255, 220, 235, 0.15);
+        }
+
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(240, 210, 255, 0.4), transparent 70%);
+            pointer-events: none;
+        }
+
+        .letter-card::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(255, 200, 220, 0.3), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Wax seal */
+        .wax-seal {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 56px;
+            background: radial-gradient(circle at 40% 38%, #f28baa, #c4547a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 20px rgba(196, 84, 122, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+            animation: sealBeat 2s ease-in-out infinite;
+        }
+
+        @keyframes sealBeat {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.06);
+            }
+        }
+
+        /* Date stamp */
+        .date-stamp {
+            text-align: center;
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 0.82rem;
+            color: #b8a0c0;
+            letter-spacing: 2px;
+            margin-bottom: 36px;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0;
+        }
+
+        .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid rgba(180, 140, 180, 0.3);
+        }
+
+        .divider span {
+            font-size: 16px;
+            opacity: 0.6;
+        }
+
+        /* Greeting */
+        .greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #5c3d7a;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        /* Body paragraphs */
+        .letter-body p {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #4a3660;
+            margin-bottom: 22px;
+        }
+
+        .letter-body p .highlight {
+            color: #c4547a;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        /* Reasons list */
+        .reasons {
+            background: rgba(255, 230, 245, 0.4);
+            border-left: 3px solid rgba(220, 160, 190, 0.6);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 28px 0;
+        }
+
+        .reasons h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #9b5a7a;
+            margin-bottom: 14px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .reasons ul {
+            list-style: none;
+        }
+
+        .reasons ul li {
+            font-family: 'Lora', serif;
+            font-size: 0.95rem;
+            color: #5c3d7a;
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(200, 160, 200, 0.15);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reasons ul li.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reasons ul li:last-child {
+            border-bottom: none;
+        }
+
+        .reasons ul li::before {
+            content: '✦';
+            color: #e89ab5;
+            font-size: 10px;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        /* Closing */
+        .closing {
+            text-align: right;
+            margin-top: 36px;
+        }
+
+        .closing p {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: #7a6e8a;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .closing .signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #c4547a;
+            font-style: italic;
+            text-shadow: 1px 2px 8px rgba(196, 84, 122, 0.15);
+        }
+
+        /* Footer stars / message */
+        .footer-msg {
+            margin-top: 60px;
+            text-align: center;
+            animation: fadeUp 2s ease 1s forwards;
+            opacity: 0;
+        }
+
+        .footer-msg p {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.88rem;
+            letter-spacing: 1.5px;
+        }
+
+        /* Floating hearts when clicking */
+        .heart-pop {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            font-size: 20px;
+            animation: heartFloat 1.5s ease forwards;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-60px) scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-120px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .letter-card {
+                padding: 40px 28px 44px;
+            }
+
+            .intro h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cursor" id="cursor"></div>
+    <canvas id="sky"></canvas>
+
+    <!-- Floating petals -->
+    <div id="petals"></div>
+
+    <div class="scene">
+
+        <!-- Intro -->
+        <div class="intro">
+            <div class="badge">✦ &nbsp; five months &nbsp; ✦</div>
+            <div class="moon-deco">
+                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="28" fill="#ffe8b0" opacity="0.15" />
+                    <circle cx="40" cy="40" r="20" fill="#ffe8b0" opacity="0.2" />
+                    <path d="M52 22 Q64 36 56 52 Q44 66 28 60 Q42 58 48 46 Q56 34 52 22Z" fill="#ffe8b0"
+                        opacity="0.9" />
+                    <circle cx="34" cy="30" r="2" fill="rgba(255,220,130,0.4)" />
+                    <circle cx="42" cy="46" r="1.2" fill="rgba(255,220,130,0.3)" />
+                </svg>
+            </div>
+            <h1>To My <em>Pretty Baby</em> Iah</h1>
+            <p class="sub">a letter written under the stars, from my heart to yours</p>
+        </div>
+
+        <!-- Envelope / Letter -->
+        <div class="envelope-wrap">
+
+            <div class="letter-card" style="border-radius: 24px;">
+                <div class="wax-seal">🌸</div>
+
+                <div class="date-stamp">the 5th of our little forever · written just for you</div>
+
+                <div class="divider">
+                    <hr><span>🌙</span>
+                    <hr>
+                </div>
+
+                <div class="greeting">My dearest Baby Iah,</div>
+
+                <div class="letter-body reveal">
+                    <p>
+                        Five months. It doesn't sound like a lot when you say it out loud — but in my heart, it feels
+                        like I've known you in every lifetime I've ever lived. Like somehow, the universe had been
+                        quietly arranging everything just so we could find each other in this one.
+                    </p>
+                    <p>
+                        You are the kind of <span class="highlight">rare and gentle magic</span> that people write poems
+                        about but rarely get to hold. And I get to hold you. Every single day, I think about how lucky
+                        that makes me — how lucky it makes us.
+                    </p>
+
+                    <div class="reasons reveal">
+                        <h3>things I love about you, a short but endless list —</h3>
+                        <ul id="reasons-list">
+                            <li>The way you exist so softly, yet you fill every room you walk into.</li>
+                            <li>How your laugh sounds like the first breath of spring after a long winter.</li>
+                            <li>The warmth you carry — it doesn't just light up a space, it heals it.</li>
+                            <li>Your eyes when you're happy. I keep that sight like a secret treasure.</li>
+                            <li>The little things you do that you don't even notice — I notice all of them.</li>
+                            <li>How you make ordinary moments feel like something worth remembering forever.</li>
+                        </ul>
+                    </div>
+
+                    <p>
+                        These five months have been my favorite story. Not because everything was perfect — but because
+                        even in the hard moments, I always wanted to be right here, beside you. I'd choose the difficult
+                        with you over the easy without you, every single time.
+                    </p>
+                    <p>
+                        I don't know what the next five months hold, or the five after that, or all the months that come
+                        after that — but I know that I want <span class="highlight">every single one of them</span> to
+                        be with you. You are my home, Baby. My softest place in this very loud world.
+                    </p>
+                    <p>
+                        Happy 5th monthsary. I love you — more than these little words could ever carry, but I'll keep
+                        trying to show you anyway.
+                    </p>
+                </div>
+
+                <div class="divider">
+                    <hr><span>✦</span>
+                    <hr>
+                </div>
+
+                <div class="closing">
+                    <p>yours, completely and quietly,</p>
+                    <div class="signature">Your Baby 🌸</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-msg">
+            <p>✦ &nbsp; click anywhere to scatter some love &nbsp; ✦</p>
+        </div>
+
+    </div>
+
+    <script>
+        // ── Custom cursor ──
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // ── Starry sky canvas ──
+        const canvas = document.getElementById('sky');
+        const ctx = canvas.getContext('2d');
+        let W, H, stars = [], nebulas = [];
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 220; i++) {
+                stars.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 1.5 + 0.3,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.008 + 0.003,
+                    phase: Math.random() * Math.PI * 2,
+                    color: ['#fff', '#ffe8f0', '#e8d5ff', '#d5f0ff'][Math.floor(Math.random() * 4)]
+                });
+            }
+            nebulas = [];
+            const colors = ['rgba(200,150,240,0.06)', 'rgba(240,150,180,0.05)', 'rgba(150,200,255,0.04)'];
+            for (let i = 0; i < 5; i++) {
+                nebulas.push({
+                    x: Math.random() * W, y: Math.random() * H,
+                    rx: 120 + Math.random() * 200, ry: 80 + Math.random() * 160,
+                    color: colors[i % colors.length]
+                });
+            }
+        }
+
+        let tick = 0;
+        function drawSky() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Deep space gradient
+            const grad = ctx.createLinearGradient(0, 0, 0, H);
+            grad.addColorStop(0, '#0d0a1a');
+            grad.addColorStop(0.4, '#130e24');
+            grad.addColorStop(1, '#1a0d20');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, W, H);
+
+            // Nebulas
+            nebulas.forEach(n => {
+                const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.rx);
+                g.addColorStop(0, n.color);
+                g.addColorStop(1, 'transparent');
+                ctx.save();
+                ctx.scale(1, n.ry / n.rx);
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(n.x, n.y * n.rx / n.ry, n.rx, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            // Stars
+            tick += 0.012;
+            stars.forEach(s => {
+                const a = 0.4 + 0.6 * Math.abs(Math.sin(tick * s.speed * 60 + s.phase));
+                ctx.globalAlpha = a;
+                ctx.fillStyle = s.color;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(drawSky);
+        }
+
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize(); initStars(); drawSky();
+
+        // ── Floating petals ──
+        const petalSymbols = ['🌸', '🌷', '✿', '❀', '🌺'];
+        const container = document.getElementById('petals');
+
+        function spawnPetal() {
+            const el = document.createElement('div');
+            el.className = 'petal';
+            el.textContent = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (10 + Math.random() * 12) + 'px';
+            const dur = 8 + Math.random() * 10;
+            el.style.animationDuration = dur + 's';
+            el.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), (dur + 5) * 1000);
+        }
+
+        for (let i = 0; i < 14; i++) spawnPetal();
+        setInterval(spawnPetal, 1800);
+
+        // ── Heart pop on click ──
+        const heartEmojis = ['💕', '💖', '🌸', '✨', '💗', '🩷'];
+        document.addEventListener('click', e => {
+            for (let i = 0; i < 4; i++) {
+                const h = document.createElement('div');
+                h.className = 'heart-pop';
+                h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                h.style.left = (e.clientX + (Math.random() - 0.5) * 60) + 'px';
+                h.style.top = e.clientY + 'px';
+                h.style.fontSize = (14 + Math.random() * 14) + 'px';
+                h.style.animationDelay = (Math.random() * 0.3) + 's';
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 2000);
+            }
+        });
+
+        // ── Scroll reveal ──
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ── Reasons stagger ──
+        const listObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = entry.target.querySelectorAll('li');
+                    items.forEach((li, i) => {
+                        setTimeout(() => li.classList.add('visible'), i * 140);
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const list = document.getElementById('reasons-list');
+        if (list) listObserver.observe(list);
+    </script>
+</body>
+
+</html>
